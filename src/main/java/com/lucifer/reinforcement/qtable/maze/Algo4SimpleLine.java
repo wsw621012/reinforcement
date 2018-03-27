@@ -1,26 +1,26 @@
-package com.lucifer.reinforcement.qtable;
+package com.lucifer.reinforcement.qtable.maze;
 
 import java.util.Random;
 
-public class Algo {
+public class Algo4SimpleLine {
 
 	private final static double EPSILON = 0.9f;
 	
 	private final static Random r = new Random();
 	
-	public static Action chooseAction(int step, DataContainer dc) {
+	public static ActionLine chooseAction(int step, SimpleLineTable dc) {
 		float[] raw = dc.getRaws(step);
 		if ((Math.random() > EPSILON) || (raw[0] == 0.0 && raw[1] == 0.0)) {
-			return r.nextBoolean() ? Action.Left : Action.Right;
+			return r.nextBoolean() ? ActionLine.Left : ActionLine.Right;
 		}
-		return ( raw[0] > raw[1] ) ? Action.Left : Action.Right;
+		return ( raw[0] > raw[1] ) ? ActionLine.Left : ActionLine.Right;
 	}
 	
-	public static float getEnvFeedback(int[] step, Action action) {
-		if (action == Action.Right) {
+	public static float getEnvFeedback(int[] step, ActionLine action) {
+		if (action == ActionLine.Right) {
 			
-			if (step[0] == (DataContainer.STATES - 2)) {
-				step[0] = DataContainer.FINAL_STEP;
+			if (step[0] == (SimpleLineTable.STATES - 2)) {
+				step[0] = SimpleLineTable.FINAL_STEP;
 				return 1;
 			}
 			step[0]++;
@@ -30,14 +30,15 @@ public class Algo {
 		
 		if (step[0] > 0) {
 			step[0]--;
-			return 0;
+			//return 0;
 		}
-		return -1;
+		//return -1;
+		return 0;
 	}
 	
 	public static void updateEnv(int step, int count) {
 		char[] env = "-----T".toCharArray();
-		if (step == DataContainer.FINAL_STEP) {
+		if (step == SimpleLineTable.FINAL_STEP) {
 			System.out.println("===== end with count:" + Integer.toString(count));
 		}
 		else {
