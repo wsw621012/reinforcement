@@ -26,5 +26,11 @@ repositories {
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter')
+	// https://mvnrepository.com/artifact/org.ujmp/ujmp
+	compile group: 'org.ujmp', name: 'ujmp', version: '0.3.0', ext: 'pom'
+	// https://mvnrepository.com/artifact/org.ujmp/ujmp-core
+	compile group: 'org.ujmp', name: 'ujmp-core', version: '0.3.0'
+	
+	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
